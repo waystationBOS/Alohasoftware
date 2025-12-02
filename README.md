@@ -1,4 +1,5 @@
 # 🚫 Software Sharing Policy
+# ASK BEFORE SHARING
 
 ![License: Restricted](https://img.shields.io/badge/License-Restricted-red.svg)
 ![Sharing: Prohibited](https://img.shields.io/badge/Sharing-Prohibited-darkred.svg)
