@@ -4,33 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Motorola Software Portal</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  
   <style>
     /* --- Base Styles --- */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      
-      /* UPDATED WALLPAPER HERE */
       background-image: url('skin2.png'); 
-      
       background-size: cover;
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-position: center;
-      color: #ffffff;
+      /* Set global text color for header/nav */
+      color: #f8f8f8; 
     }
 
-    /* Dark Overlay - Adjusted for readability over skins */
+    /* Dark Overlay */
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.75); 
+      background: rgba(0, 0, 0, 0.7); /* Slightly lighter overlay since content is bright */
       z-index: -1;
     }
 
-    /* --- Navigation Bar --- */
+    /* --- Navigation Bar (Kept Dark) --- */
     nav {
       background: rgba(0, 0, 0, 0.9);
       position: sticky;
@@ -57,6 +58,10 @@
       text-transform: uppercase;
     }
 
+    .nav-btn i {
+      margin-right: 8px;
+    }
+
     .nav-btn:hover {
       background: rgba(241, 196, 15, 0.2);
       color: #f1c40f;
@@ -74,8 +79,8 @@
       padding: 40px 20px;
       font-size: 2.5em;
       font-weight: bold;
-      color: #f1c40f;
-      text-shadow: 2px 2px 4px #000;
+      color: #f1c40f; /* Motorola Yellow */
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     }
 
     /* --- Layout Container --- */
@@ -101,22 +106,23 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* --- Card/Box Styles --- */
+    /* --- Card/Box Styles (Light Mode) --- */
     .category-box {
-      background: rgba(255, 255, 255, 0.1);
+      background: #f8f8f8; /* Solid Light Gray Background */
+      color: #333; /* Dark text color for readability */
       padding: 30px;
       border-radius: 12px;
       margin-bottom: 25px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.4); /* Enhanced shadow */
+      backdrop-filter: none; /* Removed blur since background is solid */
+      border: none;
     }
 
     .category-box h2 {
       margin-top: 0;
-      color: #f39c12;
+      color: #2c3e50; /* Dark Navy Blue for headings */
       font-size: 2em;
-      border-bottom: 1px solid rgba(255,255,255,0.3);
+      border-bottom: 1px solid #bdc3c7; /* Light gray border */
       padding-bottom: 10px;
       margin-bottom: 20px;
     }
@@ -132,7 +138,7 @@
     }
 
     a {
-      color: #1abc9c;
+      color: #1abc9c; /* Keeps the teal link color */
       font-weight: bold;
       text-decoration: none;
       transition: color 0.2s;
@@ -140,20 +146,21 @@
 
     a:hover {
       text-decoration: underline;
-      color: #ffffff;
+      color: #2c3e50; /* Dark blue on hover */
     }
 
     .note {
       display: inline-block;
       margin-top: 15px;
       padding: 10px 20px;
-      background: #c0392b;
+      background: #c0392b; /* Kept the red for warning/password */
       color: #fff;
       font-weight: bold;
       border-radius: 6px;
       font-size: 0.9em;
     }
     
+    /* Mobile Responsive adjustments */
     @media (max-width: 600px) {
       .nav-btn {
         flex: 1 1 auto;
@@ -166,12 +173,12 @@
 <body>
 
   <nav>
-    <button class="nav-btn active" onclick="openPage('home')">Home</button>
-    <button class="nav-btn" onclick="openPage('cps')">CPS</button>
-    <button class="nav-btn" onclick="openPage('speedline')">SpeedLine</button>
-    <button class="nav-btn" onclick="openPage('abs')">ABS</button>
-    <button class="nav-btn" onclick="openPage('drivers')">Drivers</button>
-    <button class="nav-btn" onclick="openPage('pos')">Aloha POS</button>
+    <button class="nav-btn active" onclick="openPage('home')"><i class="fas fa-home"></i> Home</button>
+    <button class="nav-btn" onclick="openPage('cps')"><i class="fas fa-compact-disc"></i> CPS</button>
+    <button class="nav-btn" onclick="openPage('speedline')"><i class="fas fa-tachometer-alt"></i> SpeedLine</button>
+    <button class="nav-btn" onclick="openPage('abs')"><i class="fas fa-truck"></i> ABS</button>
+    <button class="nav-btn" onclick="openPage('drivers')"><i class="fas fa-hdd"></i> Drivers</button>
+    <button class="nav-btn" onclick="openPage('pos')"><i class="fas fa-cash-register"></i> Aloha POS</button>
   </nav>
 
   <header id="main-header">
@@ -241,23 +248,24 @@
 
   <script>
     function openPage(pageName) {
+      // 1. Hide all elements with class="page-content"
       var i, tabcontent, navbtns;
-      
-      // Hide all content
       tabcontent = document.getElementsByClassName("page-content");
       for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
         tabcontent[i].classList.remove("active-page");
       }
 
-      // Deactivate all buttons
+      // 2. Remove the "active" class from all buttons
       navbtns = document.getElementsByClassName("nav-btn");
       for (i = 0; i < navbtns.length; i++) {
         navbtns[i].className = navbtns[i].className.replace(" active", "");
       }
 
-      // Show specific content and activate button
+      // 3. Show the specific page selected
       document.getElementById(pageName).style.display = "block";
+      
+      // 4. Add "active" class to the button that was clicked
       event.currentTarget.className += " active";
     }
   </script>
