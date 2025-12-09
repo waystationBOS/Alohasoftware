@@ -30,7 +30,7 @@
       z-index: -1;
     }
 
-    /* --- Navigation Bar (Kept Dark) --- */
+    /* --- Navigation Bar --- */
     nav {
       background: rgba(0, 0, 0, 0.9);
       position: sticky;
@@ -105,9 +105,9 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* --- Card/Box Styles (Softened Light Mode) --- */
+    /* --- Card/Box Styles (Softer Light Mode) --- */
     .category-box {
-      background: #ededed; 
+      background: #ededed; /* Softer Light Gray for less eye strain */
       color: #333; 
       padding: 30px;
       border-radius: 12px;
@@ -167,12 +167,29 @@
         padding: 12px 10px;
       }
     }
+
+    /* --- Footer Styles --- */
+    hr {
+      border: none;
+      border-top: 1px solid rgba(241, 196, 15, 0.2);
+      margin: 40px auto 0;
+      width: 90%;
+      max-width: 900px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.9);
+      color: #f1c40f;
+      font-size: 0.9em;
+      width: 100%;
+    }
   </style>
 </head>
 <body>
 
   <nav>
-    <button class="nav-btn active" onclick="openPage('home')"><i class="fas fa-home"></i> Home</button>
+    <button class="nav-btn" onclick="openPage('home')"><i class="fas fa-home"></i> Home</button>
     <button class="nav-btn" onclick="openPage('cps')"><i class="fas fa-compact-disc"></i> CPS</button>
     <button class="nav-btn" onclick="openPage('speedline')"><i class="fas fa-tachometer-alt"></i> SpeedLine</button>
     <button class="nav-btn" onclick="openPage('abs')"><i class="fas fa-truck"></i> ABS</button>
@@ -186,7 +203,7 @@
 
   <div class="container">
 
-    <div id="home" class="page-content active-page">
+    <div id="home" class="page-content">
       <div class="category-box" style="text-align: center;">
         <h2>Welcome</h2>
         <p>Select a category from the navigation bar above to access specific software downloads.</p>
@@ -245,8 +262,19 @@
 
   </div>
 
+  <hr>
+  <footer>
+    <p>&copy; 2025 Aloha Voyix Hub. All Rights Reserved. | Contact: DM for technical support</p>
+  </footer>
+  
   <script>
     function openPage(pageName) {
+      // Set the hash in the URL (e.g., adds #cps to the address bar)
+      window.location.hash = pageName;
+      showPage(pageName);
+    }
+    
+    function showPage(pageName) {
       // 1. Hide all elements with class="page-content"
       var i, tabcontent, navbtns;
       tabcontent = document.getElementsByClassName("page-content");
@@ -260,13 +288,40 @@
       for (i = 0; i < navbtns.length; i++) {
         navbtns[i].className = navbtns[i].className.replace(" active", "");
       }
-
-      // 3. Show the specific page selected
-      document.getElementById(pageName).style.display = "block";
       
-      // 4. Add "active" class to the button that was clicked
-      event.currentTarget.className += " active";
+      // 3. Show the specific page selected
+      const targetPage = document.getElementById(pageName);
+      if (targetPage) {
+        targetPage.style.display = "block";
+        targetPage.classList.add("active-page");
+      }
+
+      // 4. Set the "active" class on the corresponding button
+      // Finds the button that has the onclick='openPage("pageName")' attribute
+      const targetButton = document.querySelector(`.nav-btn[onclick*="'${pageName}'"]`);
+      if (targetButton) {
+        targetButton.className += " active";
+      }
     }
+
+    // Function to handle initial load and URL changes
+    function loadPageFromHash() {
+      // Get hash from URL (e.g., '#cps' -> 'cps')
+      let page = window.location.hash.replace('#', '');
+      
+      // Default to 'home' if no hash is present or hash is invalid
+      if (!page || !document.getElementById(page)) {
+        page = 'home';
+      }
+      showPage(page);
+    }
+
+    // Load the correct page when the site first opens
+    window.onload = loadPageFromHash;
+
+    // Load the correct page if the user uses the browser's back/forward buttons
+    window.onhashchange = loadPageFromHash;
+    
   </script>
 
 </body>
