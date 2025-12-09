@@ -3,7 +3,7 @@
 # Please feel free to visit my site 
 [here](https://alohavoyix.github.io/Alohasoftware)
 
-[img]([https://i.postimg.cc/5y3JpSwF/Capture.png)](https://postimg.cc/m1tKgMpb](https://image2url.com/images/1765254538172-004ae75a-8ae1-4719-a723-ed46ea63f3ed.png))
+[![Capture.jpg](https://i.postimg.cc/LsMy6Fd9/Capture.jpg)](https://postimg.cc/3knjn6JV)
 
 ![License: Restricted](https://img.shields.io/badge/License-Restricted-red.svg)
 ![Sharing: Prohibited](https://img.shields.io/badge/Sharing-Prohibited-darkred.svg)
